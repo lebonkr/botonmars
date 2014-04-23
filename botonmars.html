@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> botonmars - lebonkr </title>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script>
+
+	$(function() {
+		$( "button" ).button().click(function() {
+			var serveraddr = $("#server").val();
+			$.ajax({
+				async: true,
+				url: serveraddr,
+				type: "POST",
+				dataType: "jsonp",
+				data: {"input": $("#input").val() },
+				success:function(data, textStatus) {
+					if (data['output'] == "") {
+						$("#output").text("No Bot!");
+					}
+					else $("#output").text(data['output']);
+				},error:function(xhr, textStatus){
+					$("#output").text(textStatus);
+				},complete:function(xhr, textStatus) {
+				}
+			});	
+		});
+	});
+</script>
+<style type="text/css">
+textarea {
+    height: 200px;
+    width: 300px;
+}
+.leftbox {
+	float: left;
+}
+button {
+	clear: both;
+}
+</style>
+
+ </head>
+
+ <body>
+	<div>Server address : <input type="text" name="" id="server" style='width:500px'></div>
+	<div class="leftbox">Input<br><textarea name="" rows="" cols="" id="input"></textarea></div>
+	<div class="">Output<br><textarea name="" rows="" cols="" id="output"></textarea></div>
+	<button>Submit</button>
+ </body>
+</html>
